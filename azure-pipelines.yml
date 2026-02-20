@@ -4,7 +4,7 @@ trigger:
 pool:
   name: Default
   demands:
-    - Agent.Name -equals CDD-Practical
+    - Agent.Name -equals vm2
     - maven
 steps:
   - script: |
