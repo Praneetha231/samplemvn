@@ -1,27 +1,20 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
+---
 trigger:
-- main
-
+  - master
 pool:
-  name: 'Default'
+  name: Default
   demands:
-    -Agent.Name -equals vm2
-    -maven
-
+    - Agent.Name -equals CDD-Practical
+    - maven
 steps:
-- script: 
-    java -version
-    echo %JAVA_HOME%
-    displayName: 'Verify Java Version'
-
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package -DskipTests=true'
+  - script: |
+      java -version
+      echo %JAVA_HOME%
+    displayName: Verify Java Version
+  - task: Maven@3
+    inputs:
+      mavenPomFile: pom.xml
+      mavenOptions: -Xmx3072m
+      publishJUnitResults: true
+      testResultsFiles: "*/surefire-reports/TEST-.xml"
+      goals: package -DskipTests=true
