@@ -2,21 +2,14 @@ trigger:
 - master
 
 pool:
-  name: Default
-  demands:
-  - Agent.Name -equals vm2
-  - maven
+  vmImage: 'ubuntu-latest'
 
 steps:
 - script: |
     java -version
-    echo %JAVA_HOME%
-  displayName: 'Verify Java Version'
+  displayName: 'Verify Java'
 
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package -DskipTests=true'
